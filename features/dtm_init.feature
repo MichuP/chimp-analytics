@@ -10,4 +10,4 @@ Feature: DTM check
     Then DTM object is available
 	And the number of page load rules is "3"
 	And the number of fired rules is "1"
-	And the data element value of "page name" to be "ha:ano:etusivu"
+	And the data element value of "Page Name" is "henkiloasiakkaat:etusivu"

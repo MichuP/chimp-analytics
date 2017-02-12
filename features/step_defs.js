@@ -12,7 +12,9 @@ module.exports = function() {
 			return window._satellite.buildDate;
 		});
 		browser.timeoutsImplicitWait(1000);
-		console.log(bdate['value']);
+		// Jasmine assertions can be found here https://jasmine.github.io/2.3/introduction.html#section-Expectations
+		expect(bdate['value']).not.toBeUndefined();
+		console.log('Last build date: ' +bdate['value']);
     });
 	
 	this.Then(/^the number of page load rules is "([^"]*)"$/, function(num) {
@@ -20,7 +22,6 @@ module.exports = function() {
 			return window._satellite.pageLoadRules.length;
 		});
 		browser.timeoutsImplicitWait(1000);
-		// Jasmine assertions can be found here https://jasmine.github.io/2.3/introduction.html#section-Expectations
 		expect(num).toEqual(rules['value'].toString());	
     });
 	
@@ -32,5 +33,14 @@ module.exports = function() {
 		browser.timeoutsImplicitWait(1000);
 		var rules = dtm.getNumOfExecutedRules(log['value']);
 		expect(num).toEqual(rules.toString());	
+    });	
+	
+	this.Then(/^the data element value of "([^"]*)" is "([^"]*)"$/, function(el, val) {
+		var de = browser.execute(function(name) {
+			return window._satellite.getVar(name);
+		}, el);
+		browser.timeoutsImplicitWait(1000);
+		expect(de['value']).not.toBeUndefined();
+		expect(val).toEqual(de['value']);	
     });	
 }
