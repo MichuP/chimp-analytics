@@ -7,14 +7,6 @@ module.exports = {
         _sat = _satellite;
     },
 
-    getActiveLoadRules: function() {
-        return 3;
-    },
-
-    getDataElements: function() {
-        return "mom";
-    },
-
     getNumOfExecutedRules: function(Logger) {
         var numFired = 0;
         for (var i = 0, len = Logger.length; i < len; i++) {

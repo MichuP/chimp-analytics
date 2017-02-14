@@ -1,4 +1,5 @@
-var dtm = require("./dtm_api.js");
+var dtm = require('./dtm_api.js');
+var utils = require('./utils.js');
 
 module.exports = function() {
 
@@ -25,6 +26,22 @@ module.exports = function() {
 		expect(num).toEqual(rules['value'].toString());	
     });
 	
+	this.Then(/^the number of event based rules is "([^"]*)"$/, function(num) {
+        var rules = browser.execute(function() {
+			return window._satellite.rules.length;
+		});
+		browser.timeoutsImplicitWait(1000);
+		expect(num).toEqual(rules['value'].toString());	
+    });
+	
+	this.Then(/^the number of direct call rules is "([^"]*)"$/, function(num) {
+        var rules = browser.execute(function() {
+			return window._satellite.directCallRules.length;
+		});
+		browser.timeoutsImplicitWait(1000);
+		expect(num).toEqual(rules['value'].toString());	
+    });
+	
 	this.Then(/^the number of fired rules is "([^"]*)"$/, function(num) {
 		var log = browser.execute(function() {
 			// for some reason all functions in the objects are replaced with {}
@@ -42,5 +59,14 @@ module.exports = function() {
 		browser.timeoutsImplicitWait(1000);
 		expect(de['value']).not.toBeUndefined();
 		expect(val).toEqual(de['value']);	
+    });	
+	
+	this.Then(/^the actual value of "([^"]*)" sent to Analytics is "([^"]*)"$/, function(variable, val) {
+		var funcArgs = utils.filterScil;
+		var vars = browser.execute(function(func) {
+			var filterScil = new Function(func['arg1'], func['body'])
+			return filterScil(window.s_c_il[1]);
+		}, funcArgs);
+		expect(val).toEqual(vars['value'][variable]);
     });	
 }
