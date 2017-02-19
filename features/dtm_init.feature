@@ -1,4 +1,3 @@
-@watch
 Feature: DTM check
 
   As an analytics developer
@@ -8,6 +7,8 @@ Feature: DTM check
   Scenario: Check for DTM 
     When I visit "https://uusi.op.fi"
     Then DTM object is available
-	And Adobe Analytics library version is "1.9.9"
-	And Adobe Target library version is "2.1.2"
-	And Adobe Visitor ID service library version is "4.2.1"
+	And the number of page load rules is "3"
+	And Adobe Analytics is available and initialized
+	And Adobe Target is available and initialized
+	And Adobe Visitor ID service is available
+	

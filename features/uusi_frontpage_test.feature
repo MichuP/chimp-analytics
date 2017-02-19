@@ -9,3 +9,4 @@ Feature: uusi frontpage validation
     When I visit "https://uusi.op.fi"
     Then DTM object is available
 	And the actual value of "eVar6" sent to Analytics is "henkiloasiakkaat:etusivu"
+	And the number of fired rules is "1"

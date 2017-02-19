@@ -7,13 +7,15 @@ module.exports = {
         _sat = _satellite;
     },
 
-    getNumOfExecutedRules: function(Logger) {
-        var numFired = 0;
+	getRulesExecutedOnLoad: function(Logger) {
+		var rules = [],
+			s = '';
         for (var i = 0, len = Logger.length; i < len; i++) {
-            if (Logger[i][1].indexOf('fired') >= 0) {
-                numFired++;
+			if (Logger[i][1].indexOf('fired') >= 0) {
+                s =  Logger[i][1].match(/"([^']+)"/)[1];
+				rules.push(s);
             }
         }
-        return numFired;
-    }
+		return rules;
+	}
 };
